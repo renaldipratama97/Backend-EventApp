@@ -1,8 +1,8 @@
 const { actionQuery } = require('../helpers/actionQuery')
 
 const eventModel = {
-    getEvents: (limit, offset, order) => {
-        return actionQuery(`SELECT * FROM event ORDER BY id ${order} LIMIT ${offset},${limit}`)
+    getEvents: (limit, offset, order, title) => {
+        return actionQuery(`SELECT * FROM event WHERE title LIKE ? ORDER BY id ${order} LIMIT ${offset},${limit}`, `%${title}%`)
     },
     addEvents: (data) => {
         return actionQuery('INSERT INTO event SET ?', data)

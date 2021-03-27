@@ -4,11 +4,12 @@ const { pagination } = require('../helpers/pagination')
 
 const eventController =  {
     getEvent: async(req, res, next) => {
-        const { limit = 5, page = 1, order = "ASC" } = req.query
+        const { limit = 6, page = 1, order = "DESC" } = req.query
         const offset = (parseInt(page) - 1) * parseInt(limit)
-        
+        const title = req.query.title || ""
+
         const setPagination = await pagination(limit, page, "event", "event")
-        eventModel.getEvents(limit, offset, order)
+        eventModel.getEvents(limit, offset, order, title)
         .then(results => {
             const setResults = {
                 pagination: setPagination,
